@@ -5,12 +5,18 @@ class StringCalculator
         
         
         $result = 0;
-    
-            $values = preg_split("/[\s,]/", $stringOfValues);
+        $delimiter= "[\s,]";
+    if(substr( $stringOfValues, 0, 2 ) === "//"){
+    	$delimiter = substr( $stringOfValues, 2, 1 );
+    }
+            $values = preg_split("/$delimiter/", $stringOfValues);
             foreach ($values as $key => $value) {
                 $result+= $value;
             }
+
+             
            
         return $result;
     }
+
 }

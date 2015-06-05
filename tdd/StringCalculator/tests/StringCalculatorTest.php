@@ -51,4 +51,10 @@ class StringCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(6, $this->stringCalculator->add("1\n2\n3"));
     	$this->assertNotEquals(6, $this->stringCalculator->add("2\n2\n3"));
     }
+    public function testIfCanGetDelimiter()
+    {
+        $this->assertEquals(3, $this->stringCalculator->add("//;\n1;2"));
+        $this->assertEquals(4, $this->stringCalculator->add("//,\n1,2"));
+        $this->assertEquals(5, $this->stringCalculator->add("//|\n1|2"));
+    }
 }
