@@ -48,6 +48,7 @@ class StringCalculatorTest extends \PHPUnit_Framework_TestCase
     {
     	$this->assertEquals(6, $this->stringCalculator->add("1\n2,3"));
     	$this->assertEquals(6, $this->stringCalculator->add("1,2\n3"));
-    	$this->assertEquals(6, $this->stringCalculator->add("1\n2\n3"));
+        $this->assertEquals(6, $this->stringCalculator->add("1\n2\n3"));
+    	$this->assertNotEquals(6, $this->stringCalculator->add("2\n2\n3"));
     }
 }
