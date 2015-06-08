@@ -54,7 +54,48 @@ class StringCalculatorTest extends \PHPUnit_Framework_TestCase
     public function testIfCanGetDelimiter()
     {
         $this->assertEquals(3, $this->stringCalculator->add("//;\n1;2"));
-        $this->assertEquals(4, $this->stringCalculator->add("//,\n1,2"));
-        $this->assertEquals(5, $this->stringCalculator->add("//|\n1|2"));
+        $this->assertEquals(4, $this->stringCalculator->add("//,\n2,2"));
+        $this->assertEquals(5, $this->stringCalculator->add("//|\n3|2"));
+    }
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage negatives not allowed -1
+     */
+    public function testIfWrongNegativeNumbersWithComa()
+    {
+         $this->stringCalculator->add("0,1,-1");
+    }
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage negatives not allowed -2
+     */
+    public function testIfWrongNegativeNumbersWithSep()
+    {
+         $this->stringCalculator->add("//;\n3;-2");
+    }
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage negatives not allowed -2
+     */
+    public function testIfWrongNegativeNumbersSpaceAndComma()
+    {
+         $this->stringCalculator->add("1\n3,-2");
+    }
+
+     /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage negatives not allowed -1,-2,-3
+     */
+    public function testIfShowsMoreThenOneNegativeNumberInExeception()
+    {
+        $this->stringCalculator->add("-1,-2,-3");
+    }
+     /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage negatives not allowed -1,-3
+     */
+    public function testIfShowsMoreThenOneNegativeNumberWithSep()
+    {
+        $this->stringCalculator->add("-1\n0,-3");
     }
 }
