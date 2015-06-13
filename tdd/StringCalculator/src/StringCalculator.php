@@ -17,18 +17,27 @@ class StringCalculator
         return $result = array('sep' => $sep, 'stringOfValues' => $stringOfValues);
     }
     private function escapeDefaultSeparator($stringOfValues) {
-        return $this->setResultStringAndSep($stringOfValues, self::DEFAULT_SEP);
+        $sep = [self::DEFAULT_SEP];
+        return $this->setResultStringAndSep($stringOfValues, $sep);
     }
     private function escapeSeparator($stringOfValues) {
         if (substr($stringOfValues, 0, 2) === "//") {
-            $sep = $this->get_string_between($stringOfValues, self::SEP_START, self::SEP_END);
-            $stringOfValues = $this->delete_all_between($stringOfValues, self::SEP_START, self::SEP_END);
+            $sep = [];
+            while ($sep[] = $this->get_string_between($stringOfValues, self::SEP_START, self::SEP_END) !== '') {
+                $stringOfValues = $this->delete_all_between($stringOfValues, self::SEP_START, self::SEP_END);
+            }
             return $this->setResultStringAndSep($stringOfValues, $sep);
         }
         return $this->escapeDefaultSeparator($stringOfValues);
     }
     private function getArrayValuesFromString($sep, $stringOfValues) {
-        return preg_split("/[$sep]/", $stringOfValues);
+        $arrayValues = [];
+
+        foreach ($sep as $nr => $sepValue) {
+            
+            $arrayValues = $arrayValues + preg_split("/[$sepValue]/", $stringOfValues);
+        }
+        return $arrayValues;
     }
     private function isValidNumber($number) {
         if ($number < 0) {
@@ -64,6 +73,7 @@ class StringCalculator
         $result = $this->escapeSeparator($stringOfValues);
         
         $this->resetNegNumbersList();
+        print_r($result);
         foreach ($this->getArrayValuesFromString($result['sep'], $result['stringOfValues']) as $key => $number) {
             
             if ($this->isValidNumber($number)) $this->result+= $number;

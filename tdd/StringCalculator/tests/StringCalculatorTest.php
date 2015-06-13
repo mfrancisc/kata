@@ -104,4 +104,9 @@ class StringCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3, $this->stringCalculator->add("//[---]\n1---2"));
     
     }
+    public function testIfAllowsMultipleDelimiters()
+    {
+    $this->assertEquals(6, $this->stringCalculator->add("//[*][%]\n1*2%3"));
+        
+    }
 }
