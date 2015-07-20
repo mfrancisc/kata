@@ -35,7 +35,7 @@ class StringCalculator
 
         foreach ($sep as $nr => $sepValue) {
             
-            $arrayValues = $arrayValues + preg_split("/[$sepValue]/", $stringOfValues);
+          $arrayValues = $arrayValues + preg_split("/[$sepValue]/", $stringOfValues);
         }
         return $arrayValues;
     }
